@@ -1,33 +1,51 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Java-specific
+*.class
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Logs
+*.log
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# IDE files
+/.idea/
+/.vscode/
+/*.iml
+/.project
+/.classpath
+/.settings/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Build artifacts
+/target/
+/build/
+/out/
 
-### VS Code ###
-.vscode/
+# Dependency directories
+/.mvn/
+/.gradle/
+/node_modules/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Gradle
+.gradle
+/gradle/
+/gradle/wrapper/gradle-wrapper.jar
+
+# Secrets & Environment
+.env
+application.properties
+application.yml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Database files
+*.db
+*.mv.db
+*.h2.db
+.idea/
