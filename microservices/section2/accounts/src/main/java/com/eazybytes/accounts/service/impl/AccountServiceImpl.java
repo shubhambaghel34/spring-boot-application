@@ -1,10 +1,13 @@
 package com.eazybytes.accounts.service.impl;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
+import com.eazybytes.accounts.dto.AccountDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.entity.Accounts;
 import com.eazybytes.accounts.entity.Customer;
 import com.eazybytes.accounts.exception.CustomerAlreadyExistsException;
+import com.eazybytes.accounts.exception.ResourceNotFoundException;
+import com.eazybytes.accounts.mapper.AccountsMapper;
 import com.eazybytes.accounts.mapper.CustomerMapper;
 import com.eazybytes.accounts.repository.AccountRepository;
 import com.eazybytes.accounts.repository.CustomerRepository;
@@ -39,6 +42,20 @@ public class AccountServiceImpl implements IAccountService {
       Customer savedCustomer =customerRepository.save(customer);//this will return with id
       accountRepository.save(createNewAccount(savedCustomer)); //will send customer data to create Account
     }
+
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+        Customer customer= customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                ()->new ResourceNotFoundException("Customer","mobileNumber",mobileNumber)
+        );
+        Accounts accounts= accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                ()->new ResourceNotFoundException("Account","customerId",customer.getCustomerId().toString())
+        );
+        CustomerDto customerDto=CustomerMapper.mapToCustomerDto(customer,new CustomerDto());
+        customerDto.setAccountDto(AccountsMapper.mapToAccountsDto(accounts,new AccountDto()));
+        return customerDto;
+    }
+
     /**
      * @param customer - Customer Object
      * @return the new account details

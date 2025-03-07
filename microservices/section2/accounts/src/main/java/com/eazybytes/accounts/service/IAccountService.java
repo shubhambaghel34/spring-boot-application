@@ -6,4 +6,7 @@ public interface IAccountService {
 
     void createAccount(CustomerDto customerdto);
 
+    CustomerDto fetchAccount(String mobileNumber);
+
+
 }
