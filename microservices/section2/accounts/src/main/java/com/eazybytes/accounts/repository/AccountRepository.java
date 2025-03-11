@@ -14,7 +14,7 @@ public interface AccountRepository extends JpaRepository<Accounts,Long> {
 
     Optional<Accounts>findByCustomerId(Long customerId);
 
-
+    //These method will JPA modifying data against transaction
     @Transactional
     @Modifying
     void deleteByCustomerId(Long customerId);
