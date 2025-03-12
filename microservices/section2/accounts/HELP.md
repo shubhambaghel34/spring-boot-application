@@ -53,3 +53,24 @@ A scalable and lightweight **Spring Boot** microservice for handling [your servi
 ```bash
 git clone https://github.com/your-username/springboot-microservice.git
 cd springboot-microservice
+
+
+###Annotations
+@RestController
+used to build REST API we can use @GetMapping @Postmapping etc.
+
+(its icombination of @controller and @ResponseBody)
+#ResponseBody
+-used to build RESTAPI to expect JSON
+
+#ResponseEntity(its a class)
+Allow to send header,status and headers on HTTP only.
+#RequestEntity
+Allow to receive request body,header in http request
+
+#@ControllerAdvice
+This can be used to handled excpetions globally 
+we ahve @RestControllerAdvice and @ResponseBody
+
+#@RequestHeader and @RequestBody
+is uded to recive the request body and heder invidually
