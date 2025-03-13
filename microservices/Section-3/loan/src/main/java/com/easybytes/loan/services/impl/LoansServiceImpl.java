@@ -3,14 +3,20 @@ package com.easybytes.loan.services.impl;
 import com.easybytes.loan.constants.LoanConstants;
 import com.easybytes.loan.dto.LoansDto;
 import com.easybytes.loan.entity.Loans;
+import com.easybytes.loan.exception.LoanAlreadyExistsException;
 import com.easybytes.loan.exception.ResourceNotFoundException;
 import com.easybytes.loan.mapper.LoansMapper;
 import com.easybytes.loan.repository.LoanRepository;
 import com.easybytes.loan.services.ILoansService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
+@Service
+@AllArgsConstructor
 public class LoansServiceImpl  implements ILoansService {
     private LoanRepository loansRepository;
 
@@ -20,9 +26,9 @@ public class LoansServiceImpl  implements ILoansService {
     @Override
     public void createLoan(String mobileNumber) {
         Optional<Loans> optionalLoans= loansRepository.findByMobileNumber(mobileNumber);
-//        if(optionalLoans.isPresent()){
-//            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber "+mobileNumber);
-//        }
+        if(optionalLoans.isPresent()){
+            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber "+mobileNumber);
+        }
         loansRepository.save(createNewLoan(mobileNumber));
     }
 
@@ -39,6 +45,8 @@ public class LoansServiceImpl  implements ILoansService {
         newLoan.setTotalLoan(LoanConstants.NEW_LOAN_LIMIT);
         newLoan.setAmountPaid(0);
         newLoan.setOutstandingAmount(LoanConstants.NEW_LOAN_LIMIT);
+        newLoan.setCreatedAt(LocalDateTime.now());
+        newLoan.setCreatedBy("Annooyms");
         return newLoan;
     }
 
